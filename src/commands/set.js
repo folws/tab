@@ -19,19 +19,20 @@ export function execute(args, app) {
     case "sep":
       // Display current separator if none given
       if (args.length == 1) {
-        displayMessage(`Command seperator: '${app.config.commandSeparator}'`);
+        const sep = app.config.commandSeparator;
+        displayMessage(`Command seperator: '${sep === " " ? "<space>" : sep}'`);
         return;
       }
 
-      const sep = args[1];
-      // verify given seperator is valid
-      if (!sep || sep == "" || sep.length > 1)
+      const sep = args[1] == "<space>" ? " " : args[1];
+      if (sep === "" || sep.length > 1)
         return displayMessage(
           `Error: command seperator '${sep}' is not valid; seperator not changed.`
         );
 
       app.config.commandSeparator = sep;
-      displayMessage(`Set command seperator to ${sep}`, 3000);
+
+      displayMessage(`Set command seperator to '${args[1]}'`, 3000);
       break;
 
     // Default command

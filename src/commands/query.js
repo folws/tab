@@ -11,7 +11,7 @@ const Query = (query) => {
           ? app.buildURL(
               url,
               search || "",
-              search ? (seperator ? args.join(seperator) : args) : ""
+              search ? args.join(seperator || app.config.commandSeparator) : ""
             )
           : url;
       };

@@ -42,6 +42,10 @@ function buildURL(url, search = "", query = "") {
   );
 }
 
+function escapeHtml(s) {
+  return s.replace(/[^0-9A-Za-z ]/g, (c) => "&#" + c.charCodeAt(0) + ";");
+}
+
 class Messager {
   constructor(defaultTimeout) {
     this.messageTimer = null;
@@ -54,7 +58,7 @@ class Messager {
     this.clear();
 
     // Display message
-    this.msgDiv.innerHTML = msg;
+    this.msgDiv.innerHTML = escapeHtml(msg);
 
     // Set timer
     this.messageTimer = setTimeout(
@@ -247,7 +251,7 @@ class App {
   }
 
   evaluateInput() {
-    const input = document.querySelector("#input").value.trim();
+    const input = document.querySelector("#input").value;
     document.querySelector("#input").value = "";
 
     this.clearMessage();
