@@ -21,25 +21,24 @@ function fetchGist(gistID, app) {
 }
 
 export const execute = (args, app) => {
-  displayMessage = app.displayMessage;
+  displayMessage = app.displayMessage.bind(this);
 
   switch (args[0]) {
     case "export":
       // Display config as string and select all of it
-      displayMessage(localStorage.getItem(LOCAL_STORAGE_KEY), 1000 * 25);
+      displayMessage(localStorage.getItem(app.LOCAL_STORAGE_KEY), 1000 * 25);
       window
         .getSelection()
         .selectAllChildren(document.querySelector(app.MESSAGE_ID));
       break;
 
     case "import":
-      updateConfig(args[1]);
+      app.updateConfig(args[1]);
       break;
 
     case "open":
       if (config.gistID !== "") {
-        newTab = true;
-        commands.gist([config.gistID]);
+        app.findCommandRunner("gist")([app.config.gistID]);
       } else {
         displayMessage(
           "Error: No gist ID found. Make sure you have fetched your config at least once.",

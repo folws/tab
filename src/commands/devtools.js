@@ -10,11 +10,19 @@ const stackoverflow = {
   }),
 };
 
+const gist = {
+  execute: Query({
+    url: "https://gist.github.com",
+    search: "/",
+    seperator: "",
+  }),
+};
 const github = {
   alias: "gh",
   execute: Query({
     url: "https://github.com",
     search: "/",
+    seperator: "/",
   }),
 };
 
@@ -42,4 +50,13 @@ const mdn = {
   }),
 };
 
-export { stackoverflow, github, hackernews, mdn };
+const trello = {
+  alias: "tr",
+  execute: Query({
+    url: "https://trello.com",
+    search: "/search?q=",
+    seperator: " ",
+  }),
+};
+
+export { trello, stackoverflow, github, hackernews, mdn };

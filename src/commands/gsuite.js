@@ -26,7 +26,7 @@ const gmail = {
 };
 
 const gmaps = {
-  aliases: ["gm", "gmap"],
+  aliases: ["gmm", "gmap"],
   execute: Query({
     url: "https://maps.google.com",
     search: "/search/",

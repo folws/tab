@@ -9,7 +9,7 @@ const INPUT_ID = "#input";
 
 const DEFAULT_CONFIG = {
   // key: value
-  defaultCommand: "google",
+  defaultCommand: "ddg",
   bgColor: "#1b1d1e",
   textColor: "#ebdbb2",
   fontSize: "1.75em",
@@ -87,8 +87,9 @@ class App {
 
     this.registerCommands();
 
-    console.log(this.commands);
-    console.log(this.aliases);
+    // debug
+    // console.log(this.commands);
+    // console.log(this.aliases);
 
     this.reloadConfig();
 
@@ -142,6 +143,10 @@ class App {
       // Proceed if storage supported
       if (localStorage.getItem(LOCAL_STORAGE_KEY) !== null)
         config = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY)); // load saved config from localStorage if it exists.
+
+      // 06-05-2020 add commandSeparator if not seen
+      if (!config.commandSeparator)
+        config.commandSeparator = DEFAULT_CONFIG.commandSeparator;
 
       // Legacy import
       if (localStorage.getItem("customCommands") !== null) {
@@ -334,6 +339,10 @@ class App {
       this.config.links = legacyLinks;
       saveConfig();
     }
+  }
+
+  get LOCAL_STORAGE_KEY() {
+    return LOCAL_STORAGE_KEY;
   }
 
   static get DEFAULT_CONFIG() {
