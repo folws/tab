@@ -38,7 +38,7 @@ function buildURL(url, search = "", query = "") {
   return (
     (/(http(s)?:\/\/.)/.test(url) ? url : "http://" + url) +
     search +
-    encodeURIComponent(query)
+    encodeURI(query)
   );
 }
 
@@ -251,7 +251,7 @@ class App {
   }
 
   evaluateInput() {
-    const input = document.querySelector("#input").value;
+    const input = document.querySelector("#input").value.trim();
     document.querySelector("#input").value = "";
 
     this.clearMessage();

@@ -1,7 +1,7 @@
 // Hacker News
 export const alias = "hn";
 
-export const execute = (args, app) => {
+export const execute = (args) => {
   const url = "https://news.ycombinator.com";
   if (args.length == 0) {
     return url;
