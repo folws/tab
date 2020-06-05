@@ -141,12 +141,12 @@ class App {
 
     if (Storage) {
       // Proceed if storage supported
-      if (localStorage.getItem(LOCAL_STORAGE_KEY) !== null)
+      if (localStorage.getItem(LOCAL_STORAGE_KEY) !== null) {
         config = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY)); // load saved config from localStorage if it exists.
 
-      // 06-05-2020 add commandSeparator if not seen
-      if (!config.commandSeparator)
-        config.commandSeparator = DEFAULT_CONFIG.commandSeparator;
+        // run config validity checks
+        this.checkConfig(config);
+      }
 
       // Legacy import
       if (localStorage.getItem("customCommands") !== null) {
@@ -156,6 +156,17 @@ class App {
     }
 
     this.config = Object.assign({}, config || DEFAULT_CONFIG);
+  }
+
+  /*
+   * Run config validity checks
+   * */
+  checkConfig(config) {
+    // 06-05-2020 add commandSeparator if not seen
+    if (!config.commandSeparator)
+      config.commandSeparator = DEFAULT_CONFIG.commandSeparator;
+
+    // TODO: add checks for all config vals
   }
 
   /*
@@ -313,6 +324,7 @@ class App {
     }
 
     for (let setting in config) this.config[setting] = config[setting];
+    this.checkConfig(this.config);
 
     this.config.gistID = gist;
 
@@ -353,7 +365,7 @@ class App {
     return buildURL;
   }
 
-  static get MESSAGE_ID() {
+  get MESSAGE_ID() {
     return MESSAGE_ID;
   }
 

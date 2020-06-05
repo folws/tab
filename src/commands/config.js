@@ -21,7 +21,8 @@ function fetchGist(gistID, app) {
 }
 
 export const execute = (args, app) => {
-  displayMessage = app.displayMessage.bind(this);
+  const displayMessage = app.displayMessage.bind(app);
+  const config = app.config;
 
   switch (args[0]) {
     case "export":
@@ -33,18 +34,18 @@ export const execute = (args, app) => {
       break;
 
     case "import":
-      app.updateConfig(args[1]);
+      app.importConfigFromGist(args[1]);
       break;
 
     case "open":
-      if (config.gistID !== "") {
+      if (config.gistID !== "")
         app.findCommandRunner("gist")([app.config.gistID]);
-      } else {
+      else
         displayMessage(
           "Error: No gist ID found. Make sure you have fetched your config at least once.",
           8000
         );
-      }
+
       break;
 
     case "fetch":
@@ -65,8 +66,9 @@ export const execute = (args, app) => {
         displayMessage("Error: no gist ID", 5000);
         break;
       }
+
       displayMessage("Fetching gist...", 2500);
-      fetchGist(gistID);
+      fetchGist(gistID, app);
       break;
   }
 };
